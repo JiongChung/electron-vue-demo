@@ -30,9 +30,10 @@ function createWindow () {
     mainWindow = null
   })
 
-//   mainWindow.setMenu(null);
+  mainWindow.setMenu(null);
 
   require('./model/icpMain.js');
+  require('./model/tray.js');
 }
 
 app.on('ready', createWindow)

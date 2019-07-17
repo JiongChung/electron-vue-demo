@@ -19,7 +19,10 @@ export default {
     },
     mounted () {
         const url = window.location.href;
-        
+        setTimeout(() => {
+            
+        console.log(this.$store.state)
+        }, 10000);
     },
     methods: {
         add(){

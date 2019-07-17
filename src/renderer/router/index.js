@@ -1,18 +1,34 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-Vue.use(Router)
+const Dashboard = r => require.ensure([], () => r(require('@/pages/dashboard/index')), 'Dashboard');
+const Login = r => require.ensure([], () => r(require('@/pages/login/index')), 'Login');
+const Youlian = r => require.ensure([], () => r(require('@/pages/youlian/index')), 'Youlian');
+const Pay = r => require.ensure([], () => r(require('@/pages/youlian/pay/index')), 'Pay');
+const Load = r => require.ensure([], () => r(require('@/pages/youlian/load/index')), 'Load');
+
+Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'landing-page',
-      component: require('@/components/LandingPage').default
-    },
-    {
-      path: '*',
-      redirect: '/'
-    }
-  ]
+    // linkActiveClass: 'active',
+    // mode: 'history',
+    routes: [
+        // {
+        //   path: '/',
+        //   name: 'landing-page',
+        //   component: require('@/components/LandingPage').default
+        // },
+        
+        { path: '/admin/bashboard', name: 'Dashboard', component: Dashboard },
+        { path: '/admin/youlian/', name: 'Youlian', component: Youlian,
+            children: [
+                // { path: '', name: 'Youlian', component: Load },
+                { path: 'pay', name: 'Pay', component: Pay },
+                { path: 'load', name: 'Load', component: Load },
+                { path: "*", redirect: "pay" }
+            ]
+        },
+        { path: '/account/login', name: 'Login', component: Login },
+        { path: "*", redirect: "/admin/bashboard" }
+    ]
 })

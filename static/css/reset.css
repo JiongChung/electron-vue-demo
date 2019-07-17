@@ -1,0 +1,31 @@
+/*Author:Jionggood*/
+html{ height:100%;font-size:62.5%;}
+body{ height:100%;padding:0;margin:0;line-height:1;font-size:1.2rem;-webkit-text-size-adjust:none;color:#444444;background:#ffffff;}
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,textarea {padding:0;margin:0;}
+th{ text-align:left;}
+select,input,textarea{font-family:Arial;outline:none; outline:none;}
+img,input{ border: 0;}
+ol,ul {list-style:none;}
+li{ vertical-align:top;}
+h1,h2,h3,h4,h5,h6 {font-size: 100%;}
+table { border-collapse:collapse;border-spacing:0;}
+a{text-decoration:none; outline:none;}
+a:hover{text-decoration:none;}
+input[type=submit],input[type=button],input[type=text],textarea{-webkit-appearance:none;border-radius:0;} 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type="number"]{
+    -moz-appearance: textfield;
+}
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+:after, :before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}	
+.clearfix:after {content:"."; display:block; height:0; visibility:hidden; clear:both; }
+.clearfix { *zoom:1; }
+.center-item{
+    text-align: center
+}
+body{
+    font-family: Arial,"Helvetica Neue",Helvetica,Tahoma,"Microsoft YaHei","PingFang SC";
+}
