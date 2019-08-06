@@ -3,6 +3,7 @@ import axios from 'axios';
 import { MessageBox } from 'element-ui';
 import storage from 'electron-localstorage';
 let API = 'http://192.168.2.110';
+console.log('_AuthToken : '+storage.getItem('_AuthToken'));
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + storage.getItem('_AuthToken');
 
 export const authenticate = (params) => {
@@ -21,12 +22,55 @@ export const getChargeList = (...params) => {
             input += item + '=' + encodeURIComponent((typeof(params[index]) == 'object') ? moment(params[index].format('YYYY-MM-DD')).toJSON() : params[index]) + '&';
         }
     });   
-    return axios.post(API+'/api/services/app/UserCharge/GetChargeList'+input).then(res => res.data).catch(error => {
+    return axios.get(API+'/api/services/app/UserCharge/GetChargeList?'+input).then(res => res.data).catch(error => {
         MessageBox.alert(error.response.data.error.message, '', {
             confirmButtonText: '确定'
         });
     }); 
 };
+
+export const getLoadCardList = (...params) => {
+    let input = '';
+    let paramsNameList = ['InviteCode','PhoneNumber','OilCardNo','LoadFromDate','LoadToDate','Status','OilCardTypeId','MaxResultCount','SkipCount'];
+    paramsNameList.forEach((item, index) => {
+        if(params[index] != undefined){
+            input += item + '=' + encodeURIComponent((typeof(params[index]) == 'object') ? moment(params[index].format('YYYY-MM-DD')).toJSON() : params[index]) + '&';
+        }
+    });   
+    return axios.get(API+'/api/services/app/OilCardLoad/GetLoadCardList?'+input).then(res => res.data).catch(error => {
+        MessageBox.alert(error.response.data.error.message, '', {
+            confirmButtonText: '确定'
+        });
+    }); 
+};
+
+export const getLoadCardListToExcel = (...params) => {
+    let input = '';
+    let paramsNameList = ['InviteCode','PhoneNumber','OilCardNo','LoadFromDate','LoadToDate','Status','OilCardTypeId','MaxResultCount','SkipCount'];
+    paramsNameList.forEach((item, index) => {
+        if(params[index] != undefined){
+            input += item + '=' + encodeURIComponent((typeof(params[index]) == 'object') ? moment(params[index].format('YYYY-MM-DD')).toJSON() : params[index]) + '&';
+        }
+    });   
+    return axios.get(API+'/api/services/app/OilCardLoad/GetLoadCardListToExcel?'+input).then(res => res.data).catch(error => {
+        MessageBox.alert(error.response.data.error.message, '', {
+            confirmButtonText: '确定'
+        });
+    }); 
+};
+
+
+
+
+export const getOilCardType = () => {return axios.get(API+'/api/services/app/DropDownData/GetOilCardType').then(res => res.data); };
+export const getOilCardLoadStatus = () => {return axios.get(API+'/api/services/app/DropDownData/GetOilCardLoadStatus').then(res => res.data); };
+
+
+// downloadTempFile 导出xls
+export const downloadTempFile = params => {
+    const url = API + '/File/DownloadTempFile?fileType=' + params.fileType + '&fileToken=' + params.fileToken + '&fileName=' + params.fileName;
+    window.location.href = url; 
+}
 
 export const loadHtml = () => {
     let html = ''+ 

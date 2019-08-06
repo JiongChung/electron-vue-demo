@@ -7,6 +7,8 @@
 </template>
 
 <script>
+    import axios from 'axios';
+    import storage from 'electron-localstorage';
     import CommonService from '@/services/commonService';    
     import Header from '@/components/Header';
     
@@ -44,6 +46,8 @@
         },
         methods: {
             reload(){
+                console.log(333);
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + storage.getItem('_AuthToken');
                 this.isRouterAlive = false;
                 this.$nextTick(function(){
                     this.isRouterAlive = true;

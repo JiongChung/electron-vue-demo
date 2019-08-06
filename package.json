@@ -55,6 +55,7 @@
     "electron-localstorage": "^1.0.5",
     "element-ui": "^2.10.1",
     "highcharts": "^7.1.2",
+    "moment": "^2.24.0",
     "nedb": "^1.8.0",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",

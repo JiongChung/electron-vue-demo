@@ -14,7 +14,20 @@
     export default {
         data () {
             return {
-                msg: 'dashboard page'
+                msg: 'dashboard page',
+                InviteCode: '',
+                PhoneNumber: '',
+                NickName: '',
+                UserGradeId: '',
+                AgentGradeId: '',
+                PayMethod: '',
+                ChargeType: '',
+                Status: '',
+                OilCardTypeId: '',
+                PayFromDate: '',
+                PayToDate: '',
+                MaxResultCount: 20,
+                SkipCount: 0
             }
         },
         mounted () {
@@ -22,8 +35,25 @@
         },
         methods: {
             getdata(){
-                api.getChargeList().then(res => {
-                    console.log(res)
+                api.getChargeList(
+                    this.InviteCode ? this.InviteCode : undefined,
+                    this.PhoneNumber ? this.PhoneNumber : undefined,
+                    this.NickName ? this.NickName : undefined,
+                    this.UserGradeId ? this.UserGradeId : undefined,
+                    this.AgentGradeId ? this.AgentGradeId : undefined,
+                    this.PayMethod ? this.PayMethod : undefined,
+                    this.ChargeType ? this.ChargeType : undefined,
+                    this.Status ? this.Status : undefined,
+                    this.OilCardTypeId ? this.OilCardTypeId : undefined,
+                    this.PayFromDate ? this.PayFromDate : undefined,
+                    this.PayToDate ? this.PayToDate : undefined,
+                    this.MaxResultCount ? this.MaxResultCount : undefined,
+                    this.SkipCount ? this.SkipCount : undefined
+                ).then(res => {
+                    if(res.success){
+                        console.log(res.result)
+                    }
+                    
                 })
             }
         }

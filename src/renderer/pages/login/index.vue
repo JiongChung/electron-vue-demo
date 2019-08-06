@@ -23,6 +23,7 @@ import { authenticate } from '@/api/api';
 import CommonService from '@/services/commonService';
 import storage from 'electron-localstorage';
 export default {
+    inject: ['reload'],
     data () {
         return {
             msg: '',
@@ -41,9 +42,11 @@ export default {
             authenticate(this.from).then(data => {
                 if(data){
                     storage.setItem('_AuthToken',data.result.accessToken);
+                    console.log(storage.getItem('_AuthToken'));
                     this.saving = false;
                     this.$emit('listenLogin',true);
                     this.$router.push('/admin/bashboard');
+                    this.reload();
                 }else{
                     this.saving = false;
                 }    

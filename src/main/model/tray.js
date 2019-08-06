@@ -10,7 +10,8 @@ const template = [
     {
         label: '设置',
         click: function(){
-            
+            console.log(mainWindow)
+            // storage.removeItem('_AuthToken');
         }
     },
     {

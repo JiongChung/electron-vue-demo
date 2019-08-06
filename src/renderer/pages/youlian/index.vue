@@ -1,6 +1,6 @@
 <template>
-    <div>{{msg}}
-            <div>
+    <!-- <div>
+        <div>
             <router-link to="/admin/bashboard">控制台</router-link>
             <router-link to="/admin/youlian">加油</router-link>
         </div>
@@ -26,7 +26,8 @@
         
         
                  </div>
-    </div>
+    </div> -->
+    <router-view></router-view>
 </template>
 <script>
     export default {
