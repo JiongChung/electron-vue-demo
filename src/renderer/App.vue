@@ -30,7 +30,41 @@
                 isLogin: true
             }
         },
+        // sockets:{
+        //     connect(){
+        //         console.log('socket connectedsss')
+        //     },
+        //     customEmit(val){
+        //         console.log(val)
+        //         const option = {
+        //             title: '提示',
+        //             body: '网络已经断开，请检查您的网络设置。'
+        //         };
+
+        //         const myNotification = new window.Notification(option.title, option);
+        //     }
+        // },
         mounted () {
+            window.addEventListener('online', function() {
+                console.log('有网络。。。。')
+            });
+
+            window.addEventListener('offline', function() {
+                const option = {
+                    title: '提示',
+                    body: '网络已经断开，请检查您的网络设置。'
+                };
+
+                const myNotification = new window.Notification(option.title, option);
+            });
+
+
+            // 监听右键菜单
+            window.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                this.$electron.ipcRenderer.send('contextmenu');
+            }, false);
+
             this.$nextTick(() => {
                 let cur = document.querySelectorAll(".header");
                 let curHeight = cur[0].clientHeight;
@@ -46,7 +80,6 @@
         },
         methods: {
             reload(){
-                console.log(333);
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + storage.getItem('_AuthToken');
                 this.isRouterAlive = false;
                 this.$nextTick(function(){

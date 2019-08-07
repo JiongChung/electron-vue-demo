@@ -23,6 +23,13 @@ Vue.filter('dateformat', function(dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
 });
 
 
+// import VueSocketIO from 'vue-socket.io';
+// Vue.use(new VueSocketIO({
+//     debug: true,
+//     connection: 'http://metinseylan.com:1992',
+//     options: { path: "/my-app/" }
+// }))
+
 import './assets/css/reset.css';
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))

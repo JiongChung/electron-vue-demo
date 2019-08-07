@@ -55,7 +55,7 @@
                     this.SkipCount ? this.SkipCount : undefined
                 ).then(res => {
                     if(res.success){
-                        console.log(res.result)
+                        // console.log(res.result)
                     }
                     
                 })

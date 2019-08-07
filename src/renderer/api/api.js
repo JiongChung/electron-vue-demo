@@ -3,7 +3,6 @@ import axios from 'axios';
 import { MessageBox } from 'element-ui';
 import storage from 'electron-localstorage';
 let API = 'http://192.168.2.110';
-console.log('_AuthToken : '+storage.getItem('_AuthToken'));
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + storage.getItem('_AuthToken');
 
 export const authenticate = (params) => {

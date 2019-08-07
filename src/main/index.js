@@ -34,6 +34,9 @@ function createWindow () {
 
   require('./model/icpMain.js');
   require('./model/tray.js');
+
+//   监听右键菜单
+  require('./model/contextMenu.js');
 }
 
 app.on('ready', createWindow)
