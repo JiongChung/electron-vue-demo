@@ -1,6 +1,6 @@
 <template>
     <div class="main-content-item">
-        <h2>油卡圈存</h2>
+        <h2>提现申请</h2>
         <v-search v-on:listenSearch="getSearchData"></v-search>
         <div class="list-item">
             <div class="count">
@@ -9,46 +9,47 @@
             <table cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
                     <th style="width: 50px;">#</th>
-                    <th>用户ID</th>
-                    <th>用户昵称</th>
-                    <th>手机号码</th>
-                    <th>充值卡号类型</th>
-                    <th>充值卡号</th>
-                    <th>即时充值</th>
-                    <th>充值金额</th>
-                    <th>油豆消耗</th>
-                    <th>佣金消耗</th>
-                    <th>提交时间</th>
-                    <th>充值状态</th>
+                    <th>用户信息</th>
+                    <th>金额类型</th>
+                    <th>当前金额</th>
+                    <th>提现金额</th>
+                    <th>提现手续费</th>
+                    <th>手续费率(%)</th>
+                    <th>实际划款</th>
+                    <th>提现类型</th>
+                    <th>银行卡信息</th>
+                    <th>提现时间</th>
+                    <th>状态</th>
                     <th>操作</th>
                 </tr>
                 <tr v-for="record in tableData">
                     <td>{{record.serialnumber}}</td>
-                    <td>{{record.inviteCode}}</td>
-                    <td>{{record.nickName}}</td>
-                    <td>{{record.PhoneNumber}}</td>
                     <td>
-                        <span v-show="record.oilCardTypeId == 1">中石油</span>
-                        <span v-show="record.oilCardTypeId == 2">中石化</span>
-                        <span v-show="record.oilCardTypeId == 3">欧粤新能源</span>
+                        ID：{{record.inviteCode}}<br />
+                        昵称：{{record.nickName}}<br />
+                        手机：{{record.phoneNumber}}
                     </td>
-                    <td>{{record.oilCardNo}}</td>
+                    <td>{{record.assetTypeName}}</td>
+                    <td>{{record.remainingAmount}}</td>
+                    <td>{{record.drawingAmount}}</td>
+                    <td>{{record.handlingFee}}</td>
+                    <td>{{record.handlingFeeRate}}</td>
+                    <td>{{record.actualAmount}}</td>
+                    <td>{{record.returnTypeName}}</td>
                     <td>
-                        <span v-if="record.isRealTimeRecharge">是</span>
+                        银行：{{record.bankCardName}}<br />
+                        卡号：{{record.bankCardNo}}<br />
+                        户名：{{record.bankCardUserName}}
                     </td>
-                    <td>{{record.loadAmount}}</td>
-                    <td>{{record.usedPoints}}</td>
-                    <td>{{record.usedCommissionAmount}}</td>
-                    <td>{{record.loadTime | dateformat('YYYY-MM-DD HH:mm:ss')}}</td>
+                    <td>{{record.drawingTime | dateformat('YYYY-MM-DD HH:mm:ss')}}</td>
                     <td>
-                        <el-tag size="mini" v-if="record.status == 2">圈存成功</el-tag>
-                        <el-tag type="warning" size="mini" v-if="record.status == 1">待处理</el-tag>
-                        <el-tag type="danger" size="mini" v-if="record.status == 3">圈存失败</el-tag>
+                        <el-tag size="mini" v-if="record.status == 2">{{record.statusName}}</el-tag>
+                        <el-tag type="warning" size="mini" v-if="record.status == 1">{{record.statusName}}</el-tag>
+                        <el-tag type="danger" size="mini" v-if="record.status == 3">{{record.statusName}}</el-tag>
                     </td>
                     <td>
-                        <el-button size="mini" type="info" v-if="record.status == 1" @click="createOrEditModal(record.id)" plain>编辑</el-button>
-                        <el-button size="mini" type="info" v-if="record.status > 1" @click="createOrEditModal(record.id)" plain>查看</el-button>
-                        <el-button size="mini" type="primary" @click="businessorderNow(record.id, record.oilCardTypeId, record.oilCardNo)" v-if="record.status == 1" plain>立即圈存</el-button>
+                        <el-button size="mini" type="primary" v-if="record.status == 1" @click="createOrEditModal(record.id)" plain>编辑</el-button>
+                        <el-button size="mini" type="info" v-else @click="createOrEditModal(record.id)" plain>查看</el-button>
                     </td>
                 </tr>
             </table>
@@ -63,64 +64,58 @@
             </div>
             <div v-html="loadingHtml" v-show="isloading"></div>
         </div>
-        <!-- <v-createoreditmodal
+        <v-createoreditmodal
             :dialogVisible="dialogVisible"
             :tableData="tableData"
-            :oilCardTypeList="oilCardTypeList"
             v-on:linsenDialog="showMsgFromDialog"
-            @modalSave="getLoadCardList()"
+            @modalSave="getdata()"
             ref="createOrEditModal">
-        </v-createoreditmodal> -->
+        </v-createoreditmodal>
     </div>
 </template>
 <script>
     import * as api from '@/api/api';
     import Pagination from '@/components/page/index';
     import CommonService from '@/services/commonService';
-    import Search from '@/pages/youlian/load/search';
+    import Search from './search';
+    import CreateOrEditModal from './createOrEditModal';
 
     export default {
         components: {
             'v-pagination' : Pagination,
             'v-search': Search,
-            // 'v-createoreditmodal': CreateOrEditModal
+            'v-createoreditmodal': CreateOrEditModal
         },
         data () {
-            return{
+            return {
                 InviteCode: '',
                 PhoneNumber: '',
-                OilCardNo: '',
-                LoadFromDate: '',
-                LoadToDate: '',
                 Status: '',
-                OilCardTypeId: '',
+                DrawingFromDate: '',
+                DrawingToDate: '',
                 MaxResultCount: 10,
                 SkipCount: 0,
                 totalCount: 0,
                 currentPageTotal: 0,
-                totalResult: [],
                 tableData: [],
                 loadingHtml: '',
                 isloading: false,
-                dialogVisible: false,
-                oilCardTypeList: []
+                dialogVisible: false
             }
         },
-        mounted(){
+        mounted () {
             this.getdata();
         },
         methods: {
             getdata(){
                 this.isloading = true;
                 this.loadingHtml = CommonService.loadHtml();
-                api.getLoadCardList(
+                api.getDrawingApplyList(
                     this.InviteCode ? this.InviteCode : undefined,
                     this.PhoneNumber ? this.PhoneNumber : undefined,
-                    this.OilCardNo ? this.OilCardNo : undefined,
-                    this.LoadFromDate ? this.LoadFromDate : undefined,
-                    this.LoadToDate ? this.LoadToDate : undefined,
                     this.Status ? this.Status : undefined,
-                    this.OilCardTypeId ? this.OilCardTypeId : undefined,
+                    this.DrawingFromDate ? this.DrawingFromDate : undefined,
+                    this.DrawingToDate ? this.DrawingToDate : undefined,
                     this.MaxResultCount ? this.MaxResultCount : undefined,
                     this.SkipCount ? this.SkipCount : undefined
                 ).then(res => {
@@ -132,8 +127,7 @@
                             this.tableData[i].serialnumber = i + 1 + this.currentPageTotal;
                         }
                     }
-                    
-                })
+                });
             },
 
             showCurrentPageFromChild(data){
@@ -149,12 +143,19 @@
             getSearchData(data){
                 this.InviteCode = data.InviteCode;
                 this.PhoneNumber = data.PhoneNumber;
-                this.OilCardNo = data.OilCardNo;
-                this.LoadFromDate = data.LoadFromDate;
-                this.LoadToDate = data.LoadToDate;
+                this.DrawingFromDate = data.DrawingFromDate;
+                this.DrawingToDate = data.DrawingToDate;
                 this.Status = data.Status;
-                this.OilCardTypeId = data.OilCardTypeId;
                 this.getdata();
+            },
+
+            createOrEditModal(id){
+                this.dialogVisible = true;
+                this.$refs.createOrEditModal.show(id)
+            },
+
+            showMsgFromDialog(data){
+                this.dialogVisible = data.dialogVisible;
             }
         }
     }

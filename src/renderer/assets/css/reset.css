@@ -1,0 +1,112 @@
+/*Author:Jionggood*/
+html{ height:100%;font-size:62.5%;}
+body{ height:100%;padding:0;margin:0;line-height:1;font-size:1.2rem;-webkit-text-size-adjust:none;color:#444444;background:#ffffff;}
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,textarea {padding:0;margin:0;}
+th{ text-align:left;}
+select,input,textarea{font-family:Arial;outline:none; outline:none;}
+img,input{ border: 0;}
+ol,ul {list-style:none;}
+li{ vertical-align:top;}
+h1,h2,h3,h4,h5,h6 {font-size: 100%;}
+table { border-collapse:collapse;border-spacing:0;}
+a{text-decoration:none; outline:none;}
+a:hover{text-decoration:none;}
+input[type=submit],input[type=button],input[type=text],textarea{-webkit-appearance:none;border-radius:0;} 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type="number"]{
+    -moz-appearance: textfield;
+}
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+:after, :before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}	
+.clearfix:after {content:"."; display:block; height:0; visibility:hidden; clear:both; }
+.clearfix { *zoom:1; }
+.center-item{
+    text-align: center
+}
+body{
+    font-family: Arial,"Helvetica Neue",Helvetica,Tahoma,"Microsoft YaHei","PingFang SC";
+}
+
+.main-content-item{
+    padding-top: 5px;
+}
+.main-content-item h2{
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 15px;
+}
+
+.list-item{
+    background: white;
+    position: relative;
+}
+.list-item .count{
+    padding: 5px 10px;
+}
+.list-item .count span{
+    background: #3598dc;
+    color: #ffffff;
+    padding: 3px 5px;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 20px
+}
+
+.main-content-item td, .main-content-item th{
+    padding: 5px 10px;
+    border: solid 1px #eeeeee;
+    font-size: 13px;
+}
+
+.main-content-item td{
+    line-height: 1.8
+}
+.main-content-item th:first-child,
+.main-content-item td:first-child{
+    text-align: center
+}
+.main-content-item th{
+    background: #e3e3e3;
+    border-color: #e3e3e3;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.main-content-item tr:nth-child(2n){
+    background: #fcfcfc
+}
+.main-content-item tr:hover{
+    background: #eeeeee
+}
+.page-item{
+    background: #ffffff;
+    padding: 10px;
+}
+.page-item .totalCount{
+    padding-top: 10px;
+    display: inline-block
+}
+.el-pagination__sizes{
+    float: right;
+    margin-right: 0 !important
+}
+
+.search-item{
+    background: white;
+    padding: 0 15px 15px;
+    margin-bottom: 10px;
+}
+.search-item .label{
+    display: block;
+    height: 35px;
+    font-size: 14px;
+    padding-top: 15px
+}
+.search-item .el-date-editor.el-input{
+    width: 100%
+}
+.el-select{
+    width: 100%
+}

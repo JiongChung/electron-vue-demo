@@ -60,10 +60,26 @@ export const getLoadCardListToExcel = (...params) => {
 };
 
 
+export const getDrawingApplyList = (...params) => {
+    let input = '';
+    let paramsNameList = ['InviteCode','PhoneNumber','Status','DrawingFromDate','DrawingToDate','MaxResultCount','SkipCount'];
+    paramsNameList.forEach((item, index) => {
+        if(params[index] != undefined){
+            input += item + '=' + encodeURIComponent((typeof(params[index]) == 'object') ? moment(params[index].format('YYYY-MM-DD')).toJSON() : params[index]) + '&';
+        }
+    });   
+    return axios.get(API+'/api/services/app/UserAssetDrawingApply/GetDrawingApplyList?'+input).then(res => res.data).catch(error => {
+        MessageBox.alert(error.response.data.error.message, '', {
+            confirmButtonText: '确定'
+        });
+    }); 
+};
+
 
 
 export const getOilCardType = () => {return axios.get(API+'/api/services/app/DropDownData/GetOilCardType').then(res => res.data); };
 export const getOilCardLoadStatus = () => {return axios.get(API+'/api/services/app/DropDownData/GetOilCardLoadStatus').then(res => res.data); };
+export const getDrawingStatus = () => {return axios.get(API+'/api/services/app/DropDownData/GetDrawingStatus').then(res => res.data); };
 
 
 // downloadTempFile 导出xls

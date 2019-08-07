@@ -7,14 +7,17 @@
                 </div> -->
 
         {{msg}}
+        <div>{{AuthToken}}</div>
     </div>
 </template>
 <script>
     import * as api from '@/api/api';
+    import storage from 'electron-localstorage';
     export default {
         data () {
             return {
                 msg: 'dashboard page',
+                AuthToken: '',
                 InviteCode: '',
                 PhoneNumber: '',
                 NickName: '',
@@ -31,6 +34,7 @@
             }
         },
         mounted () {
+            this.AuthToken = storage.getItem('_AuthToken');
             this.getdata();
         },
         methods: {

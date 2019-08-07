@@ -25,7 +25,7 @@ const template = [
 
 const trayMenu = Menu.buildFromTemplate(template);
 tray.setContextMenu(trayMenu);
-tray.setToolTip('project name');
+tray.setToolTip('中');
 
 winTray.on('close',(e)=>{        
         if(!winTray.isFocused()){

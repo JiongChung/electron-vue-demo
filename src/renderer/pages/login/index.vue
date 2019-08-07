@@ -1,7 +1,7 @@
 <template>
     <div class="login-page">
         <div class="login-item">
-            <el-form :model="from">
+            <el-form :model="from" @keyup.enter.native="save()">
                 <el-row>
                     <el-col v-show="isError" :span="24"><el-tag type="danger" class="error-tips"><i class="el-icon-error"></i> {{msg}}</el-tag></el-col>
                     <el-col :span="24">
@@ -38,6 +38,7 @@ export default {
     },
     methods: {
         save(){
+            if(!this.isCanSubmit)return;
             this.saving = true;
             authenticate(this.from).then(data => {
                 if(data){

@@ -6,7 +6,7 @@
                 <template slot="title">智慧油联</template>
                     <el-menu-item index="2-1">交费列表</el-menu-item>
                     <el-menu-item index="2-2">油卡圈存</el-menu-item>
-                    <el-menu-item index="2-3">选项3</el-menu-item>
+                    <el-menu-item index="2-3">提现记录</el-menu-item>
                 <el-submenu index="2-4">
                 <template slot="title">选项4</template>
                     <el-menu-item index="2-4-1">选项1</el-menu-item>
@@ -40,6 +40,8 @@
                     this.$router.push('/admin/youlian/pay')
                 }else if(key == '2-2'){
                     this.$router.push('/admin/youlian/load')
+                }else if(key == '2-3'){
+                    this.$router.push('/admin/youlian/withdraw')
                 }
             },
 

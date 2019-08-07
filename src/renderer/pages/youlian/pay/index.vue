@@ -173,6 +173,7 @@
             },
 
             showCurrentPageFromChild(data){
+                // alert(data);
                 this.SkipCount = this.MaxResultCount * (data - 1);
                 this.getdata();
             },
@@ -180,7 +181,7 @@
             showEachPageQtyFromChild(data){
                 this.MaxResultCount = data;
                 this.getdata();
-            },
+            }
         }
     }
 </script>
