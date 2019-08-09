@@ -8,6 +8,10 @@
 
         {{msg}}
         <div>{{AuthToken}}</div>
+        -- {{$store.state.count}} --
+        <button @click="intCount">增加数量+</button>
+        <br><br>
+        <button @click="get">获取</button>
     </div>
 </template>
 <script>
@@ -38,6 +42,13 @@
             this.getdata();
         },
         methods: {
+            intCount(){
+                this.$store.commit('intCount');
+            },
+            get(){
+                console.log(this.$store.state)
+            },
+
             getdata(){
                 api.getChargeList(
                     this.InviteCode ? this.InviteCode : undefined,

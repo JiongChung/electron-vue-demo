@@ -88,19 +88,32 @@
         },
 
         mounted() {
-           this.getOilCardTypeData();
-           this.getOilCardLoadStatusData();
+            if(this.$store.state.oilCardTypeList.length == 0){
+                this.getOilCardTypeData();
+            }else{
+                this.oilCardTypeList = this.$store.state.oilCardTypeList;
+            }
+            if(this.$store.state.oilCardLoadStatusList.length == 0){
+                this.getOilCardLoadStatusData();
+            }else{
+                this.oilCardLoadStatusList = this.$store.state.oilCardLoadStatusList;
+            }
+        //    this.getOilCardTypeData();
+        //    this.getOilCardLoadStatusData();
        },
 
        methods: {
             getOilCardTypeData(){
                 api.getOilCardType().then(response => {
-                    console.log(response);
                     this.oilCardTypeList = response.result;
+                    this.$store.commit('setOilCardType', response.result);
                 });
             },
             getOilCardLoadStatusData(){
-                api.getOilCardLoadStatus().then(response => this.oilCardLoadStatusList = response.result);
+                api.getOilCardLoadStatus().then(response => {
+                    this.oilCardLoadStatusList = response.result;                    
+                    this.$store.commit('setOilCardLoadStatus', response.result);
+                });
             },
             submitSearch(){
                 this.searchParameter.InviteCode = this.InviteCode.trim();

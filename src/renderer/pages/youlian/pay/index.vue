@@ -1,6 +1,8 @@
 <template>
     <div class="main-content-item">
         <h2>交费列表</h2>
+         {{$store.state.count}}
+        <button @click="intCount">增加数量+</button>
         <!-- <v-search v-on:listenSearch="showSearchData"></v-search> -->
         <div class="list-item">
             <div class="count">
@@ -141,6 +143,9 @@
             this.getdata();
         },
         methods: {
+            intCount(){
+                this.$store.commit('intCount');
+            },
             getdata(){
                 this.isloading = true;
                 this.loadingHtml = CommonService.loadHtml();

@@ -1,20 +1,27 @@
 <template>
-  <div id="app">
-    <v-header v-show="isLogin" class='header'></v-header>
-    <router-view v-on:listenLoadingHtml="showMsgLoadingHtml"  v-on:listenLogin="showLoginMsg" v-if="isRouterAlive"></router-view>
-    <div v-html="loadingHtml" v-show="isloading"></div>
-  </div>
+    <div>
+        <v-header></v-header>
+        <div id="app" :style="{'height':appHeight+'px'}">
+            <v-menu v-show="isLogin" class='menu'></v-menu>
+            <div class="contentbox"  :style="{'height':contentHeight+'px'}">
+                <router-view v-on:listenLoadingHtml="showMsgLoadingHtml"  v-on:listenLogin="showLoginMsg" v-if="isRouterAlive"></router-view>
+            </div>
+            <div v-html="loadingHtml" v-show="isloading"></div>
+        </div>
+    </div>
 </template>
 
 <script>
     import axios from 'axios';
     import storage from 'electron-localstorage';
     import CommonService from '@/services/commonService';    
+    import Menu from '@/components/Menu';
     import Header from '@/components/Header';
     
     export default {
         name: 'my-project',
         components: {
+            'v-menu': Menu,
             'v-header': Header
         },
         provide(){
@@ -27,7 +34,9 @@
                 isRouterAlive: true,
                 loadingHtml: '',
                 isloading: false,
-                isLogin: true
+                isLogin: true,
+                appHeight: document.documentElement.clientHeight,
+                contentHeight: 0
             }
         },
         // sockets:{
@@ -45,6 +54,13 @@
         //     }
         // },
         mounted () {
+            this.appHeight = document.documentElement.clientHeight - 40;
+            this.contentHeight = this.appHeight - document.querySelector('.menu').clientHeight;
+            window.onresize = () =>{
+                this.appHeight = document.documentElement.clientHeight - 40;
+                this.contentHeight = this.appHeight - document.querySelector('.menu').clientHeight;
+            }
+
             window.addEventListener('online', function() {
                 console.log('有网络。。。。')
             });
@@ -66,7 +82,7 @@
             }, false);
 
             this.$nextTick(() => {
-                let cur = document.querySelectorAll(".header");
+                let cur = document.querySelectorAll(".menu");
                 let curHeight = cur[0].clientHeight;
             });
             this.loadingHtml = CommonService.loadHtml();
@@ -77,6 +93,17 @@
                     this.$router.push('/account/login');
                 }
             });
+
+            window.addEventListener('main-process-messages', (e, data) => {
+                e.preventDefault();
+                console.log(434)
+                console.log(data);
+            }, false);
+
+            // this.$electron.ipcRenderer.on("main-process-messages", (event, data) => {
+            //     console.log(434)
+            //     console.log(data);
+            // });
         },
         methods: {
             reload(){
@@ -99,6 +126,10 @@
 <style lang="scss">
   /* CSS */
   #app{
+      height: 400px;
+      overflow-y: hidden;
+  }
+  .contentbox{
       height: 100%;
   }
 </style>

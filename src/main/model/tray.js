@@ -1,17 +1,20 @@
 
-const {Menu, Tray, BrowserWindow, app} = require('electron');
+const {Menu, Tray, BrowserWindow, app, BrowerWindow} = require('electron');
 const storage = require('electron-localstorage');
 const path = require('path');
 
 const tray = new Tray(path.join(__static,'favicon.ico'));
 let winTray = BrowserWindow.getFocusedWindow();
 
+
 const template = [
     {
         label: '设置',
         click: function(){
-            console.log(mainWindow)
+            // console.log(mainWindow)
             // storage.removeItem('_AuthToken');
+            console.log(BrowerWindow)
+            BrowerWindow.webContents.send('main-process-messages', 'nihao');
         }
     },
     {
