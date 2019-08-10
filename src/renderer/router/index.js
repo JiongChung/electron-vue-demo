@@ -11,7 +11,7 @@ const Withdraw = r => require.ensure([], () => r(require('@/pages/youlian/withdr
 Vue.use(Router);
 
 export default new Router({
-    // linkActiveClass: 'active',
+    linkActiveClass: 'active',
     // mode: 'history',
     routes: [
         // {

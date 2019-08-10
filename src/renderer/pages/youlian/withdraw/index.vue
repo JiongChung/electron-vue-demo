@@ -1,5 +1,5 @@
 <template>
-    <div class="main-content-item">
+    <div>
         <h2>提现申请</h2>
         <v-search v-on:listenSearch="getSearchData"></v-search>
         <div class="list-item">

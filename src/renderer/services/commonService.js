@@ -1,4 +1,4 @@
-import storage from 'electron-localstorage';
+// import storage from 'electron-localstorage';
 export default class CommonService {
     static get(key, type){
         return (type != undefined) ? JSON.parse(window.localStorage.getItem(key)) : window.localStorage.getItem(key);
@@ -14,7 +14,8 @@ export default class CommonService {
 
     static isLogin(){
         let status = false;
-        let token = storage.getItem('_AuthToken');
+        // let token = storage.getItem('_AuthToken');        
+        let token = this.get('_AuthToken');
         if(token){
             status = true;
         }

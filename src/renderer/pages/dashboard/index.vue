@@ -16,7 +16,7 @@
 </template>
 <script>
     import * as api from '@/api/api';
-    import storage from 'electron-localstorage';
+    // import storage from 'electron-localstorage';
     export default {
         data () {
             return {
@@ -38,7 +38,8 @@
             }
         },
         mounted () {
-            this.AuthToken = storage.getItem('_AuthToken');
+            // this.AuthToken = storage.getItem('_AuthToken');
+            this.AuthToken = window.localStorage.getItem('_AuthToken');
             this.getdata();
         },
         methods: {

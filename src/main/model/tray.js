@@ -1,6 +1,6 @@
 
 const {Menu, Tray, BrowserWindow, app, BrowerWindow} = require('electron');
-const storage = require('electron-localstorage');
+// const storage = require('electron-localstorage');
 const path = require('path');
 
 const tray = new Tray(path.join(__static,'favicon.ico'));
@@ -20,7 +20,7 @@ const template = [
     {
         label: '退出',
         click: function(){
-            storage.removeItem('_AuthToken');
+            // storage.removeItem('_AuthToken');
             app.quit();
         }
     }
