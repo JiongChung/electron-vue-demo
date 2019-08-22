@@ -81,6 +81,7 @@
     import CreateOrEditModal from './createOrEditModal';
 
     export default {
+        name: 'Withdraw',
         components: {
             'v-pagination' : Pagination,
             'v-search': Search,

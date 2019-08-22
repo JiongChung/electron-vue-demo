@@ -2,7 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import { MessageBox } from 'element-ui';
 // import storage from 'electron-localstorage';
-let API = 'http://192.168.2.110';
+let API = 'http://api-rc.zhihuiyoulian.com:800';
 // axios.defaults.headers.common['Authorization'] = 'Bearer ' + storage.getItem('_AuthToken');
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('_AuthToken');
 

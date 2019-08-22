@@ -109,6 +109,7 @@
     import CommonService from '@/services/commonService';
 
     export default {
+        name: "Pay",
         components: {
             'v-page': Pagination,
             // 'v-search': Search,

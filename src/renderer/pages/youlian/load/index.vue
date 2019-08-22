@@ -80,6 +80,7 @@
     import Search from '@/pages/youlian/load/search';
 
     export default {
+        name: "Load",
         components: {
             'v-pagination' : Pagination,
             'v-search': Search,

@@ -18,6 +18,16 @@
     import * as api from '@/api/api';
     // import storage from 'electron-localstorage';
     export default {
+        name: 'Dashboard',
+        beforeRouteLeave(to, from, next) {
+            console.log(' beforeRouteLeave !', this)
+            const answer = window.confirm('确认离开？')
+            answer ? next() : next(false)
+        },
+        beforeRouteEnter(to, from, next) {
+            console.log(' beforeRouteEnter !')
+            next()
+        },
         data () {
             return {
                 msg: 'dashboard page',

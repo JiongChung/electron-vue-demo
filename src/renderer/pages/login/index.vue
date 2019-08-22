@@ -23,6 +23,7 @@ import { authenticate } from '@/api/api';
 import CommonService from '@/services/commonService';
 // import storage from 'electron-localstorage';
 export default {
+    name: 'Login',
     inject: ['reload'],
     data () {
         return {
